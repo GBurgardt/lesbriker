@@ -96,6 +96,22 @@ const App = ({ classes }) => {
     setIsRecording(false)
   }
 
+  function testApiGPT() {
+    const axios = require('axios');
+
+    axios.get('http://localhost:8000/chat/test').then(
+      (response) => {
+        console.log("response:", response)
+        // Imprime la respuesta generada por el modelo
+        console.log(response.data.response);
+      }
+    )
+
+
+    
+
+  }
+
   function transcribeRecording(recordedBlob) {
     const headers = {
       "content-type": "multipart/form-data",
@@ -129,7 +145,8 @@ const App = ({ classes }) => {
           transcribeTimeout={transcribeTimeout} onTranscribeTiemoutChanged={handleTranscribeTimeoutChange} />
       </div>
       <div className={classes.buttonsSection} >
-        {!isRecording && !isTranscribing && <Button onClick={startRecording} variant="primary">Start transcribing</Button>}
+        {!isRecording && !isTranscribing && <Button onClick={testApiGPT} variant="primary">Start transcribing</Button>}
+        {/* {!isRecording && !isTranscribing && <Button onClick={startRecording} variant="primary">Start transcribing</Button>} */}
         {(isRecording || isTranscribing) && <Button onClick={stopRecording} variant="danger" disabled={stopTranscriptionSessionRef.current}>Stop</Button>}
       </div>
 
